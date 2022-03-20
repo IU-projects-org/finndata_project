@@ -1,6 +1,11 @@
 name: Push CI
 
-on: [pull_request]
+on:
+  push:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
   
 jobs:
   lint:
