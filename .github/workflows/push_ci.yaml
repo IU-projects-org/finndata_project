@@ -40,8 +40,8 @@ jobs:
       - run: flutter build apk --debug 
       - uses: actions/upload-artifact@v1
         with:
-        name: release-apk
-        path: build/app/outputs/apk/release/app-release.apk
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
 
 # The credit for this CI configuration goes to
 # https://gist.github.com/aagarwal1012/eb2551683d81cf47d60868ab607520b1
