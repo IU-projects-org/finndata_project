@@ -1,6 +1,6 @@
 name: Push CI
 
-on: [push]
+on: [pull_request, push]
   
 jobs:
   lint:
@@ -18,7 +18,7 @@ jobs:
     - run: flutter analyze .
 
   build:
-    if: github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     name: Build stage
     runs-on: ubuntu-latest
     steps:
