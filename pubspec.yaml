@@ -25,10 +25,12 @@ environment:
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
+# versions available, run `flutt  er pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
+  firebase_auth: ^3.3.11
+  cloud_firestore: ^3.1.10
 
 
   # The following adds the Cupertino Icons font to your application.
