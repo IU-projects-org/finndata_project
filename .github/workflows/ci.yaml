@@ -1,4 +1,4 @@
-name: Push CI
+name: CI
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
         with:
           flutter-version: '2.10.2'
       - run: flutter pub get
-      - run: flutter build apk --debug 
+      - run: flutter build apk 
       - uses: actions/upload-artifact@v1
         with:
           name: release-apk
