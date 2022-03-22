@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../component/button.dart';
 import '../constants/constants.dart';
-import 'Home_Screen.dart';
+import 'home_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -144,7 +144,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     await Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (routeContext) =>
-                                          const HomeScreen(),
+                                            const HomeScreen(),
                                       ),
                                     );
 
