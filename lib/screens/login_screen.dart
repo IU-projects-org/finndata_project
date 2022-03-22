@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,26 +8,28 @@ import 'home_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formkey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
-  bool isloading = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isloading
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : Form(
-              key: formkey,
+              key: formKey,
               child: AnnotatedRegion<SystemUiOverlayStyle>(
                 value: SystemUiOverlayStyle.light,
                 child: Stack(
@@ -38,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: double.infinity,
                       color: Colors.grey[200],
                       child: SingleChildScrollView(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 25, vertical: 120),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 120),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -69,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       if (value!.isEmpty) {
                                         return "Please enter Email";
                                       }
+                                      return null;
                                     },
                                     textAlign: TextAlign.center,
                                     decoration: kTextFieldDecoration.copyWith(
@@ -86,6 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       if (value!.isEmpty) {
                                         return "Please enter Password";
                                       }
+                                      return null;
                                     },
                                     onChanged: (value) {
                                       password = value;
@@ -105,9 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             LoginSignupButton(
                               title: 'Login',
                               ontapp: () async {
-                                if (formkey.currentState!.validate()) {
+                                if (formKey.currentState!.validate()) {
                                   setState(() {
-                                    isloading = true;
+                                    isLoading = true;
                                   });
                                   try {
                                     await _auth.signInWithEmailAndPassword(
@@ -115,12 +118,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                     await Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (contex) => HomeScreen(),
+                                        builder: (routeContext) =>
+                                            const HomeScreen(),
                                       ),
                                     );
 
                                     setState(() {
-                                      isloading = false;
+                                      isLoading = false;
                                     });
                                   } on FirebaseAuthException catch (e) {
                                     showDialog(
@@ -138,10 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ],
                                       ),
                                     );
-                                    print(e);
                                   }
                                   setState(() {
-                                    isloading = false;
+                                    isLoading = false;
                                   });
                                 }
                               },
@@ -151,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => SignupScreen(),
+                                    builder: (context) => const SignupScreen(),
                                   ),
                                 );
                               },

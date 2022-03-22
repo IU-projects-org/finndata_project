@@ -7,16 +7,18 @@ import '../constants/constants.dart';
 import 'Home_Screen.dart';
 
 class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
+
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final formkey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
-  bool isloading = false;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +35,12 @@ class _SignupScreenState extends State<SignupScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: isloading
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
           : Form(
-              key: formkey,
+              key: formKey,
               child: AnnotatedRegion<SystemUiOverlayStyle>(
                 value: SystemUiOverlayStyle.light,
                 child: Stack(
@@ -82,6 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       if (value!.isEmpty) {
                                         return "Please enter Email";
                                       }
+                                      return null;
                                     },
                                     textAlign: TextAlign.center,
                                     decoration: kTextFieldDecoration.copyWith(
@@ -99,6 +102,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       if (value!.isEmpty) {
                                         return "Please enter Password";
                                       }
+                                      return null;
                                     },
                                     onChanged: (value) {
                                       password = value;
@@ -118,9 +122,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             LoginSignupButton(
                               title: 'Register',
                               ontapp: () async {
-                                if (formkey.currentState!.validate()) {
+                                if (formKey.currentState!.validate()) {
                                   setState(() {
-                                    isloading = true;
+                                    isLoading = true;
                                   });
                                   try {
                                     await _auth.createUserWithEmailAndPassword(
@@ -131,20 +135,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                         backgroundColor: Colors.blueGrey,
                                         content: Padding(
                                           padding: EdgeInsets.all(8.0),
-                                          child: Text(
-                                              'Successfully Register.You Can Login Now'),
+                                          child: Text('Successfully Register!'),
                                         ),
                                         duration: Duration(seconds: 5),
                                       ),
                                     );
+
                                     await Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (contex) => HomeScreen(),
+                                        builder: (routeContext) =>
+                                          const HomeScreen(),
                                       ),
                                     );
 
                                     setState(() {
-                                      isloading = false;
+                                      isLoading = false;
                                     });
                                   } on FirebaseAuthException catch (e) {
                                     showDialog(
@@ -165,7 +170,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     );
                                   }
                                   setState(() {
-                                    isloading = false;
+                                    isLoading = false;
                                   });
                                 }
                               },
