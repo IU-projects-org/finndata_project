@@ -25,14 +25,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF959595),
+        backgroundColor: Colors.black,
         unselectedItemColor: const Color(0xFF707070),
+        selectedFontSize: 0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
+        selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
       body: SafeArea(child: screens[_selectedIndex]),

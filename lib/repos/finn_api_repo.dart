@@ -36,6 +36,15 @@ class FinnHubAPIRepository {
       throw Exception('Not found. Origin: $exc');
     }
   }
+
+  searchQuery(String q) async {
+    try {
+      Response response = await _dio.get('$_baseUrl/search?q=$q&$_tokenParam');
+      return response.data['result'] as List;
+    } on Exception catch (exc) {
+      throw Exception('Not found. Origin: $exc');
+    }
+  }
 }
 
 final FinnHubAPIRepository finnApiRepo = FinnHubAPIRepository();

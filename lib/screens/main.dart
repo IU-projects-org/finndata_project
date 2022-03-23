@@ -14,26 +14,35 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getMarketNews(),
-      builder: (context, AsyncSnapshot<List<dynamic>> news) {
-        if (!news.hasData && news.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(
-            color: Colors.black,
+    return Center(
+      child: FutureBuilder(
+        future: getMarketNews(),
+        builder: (context, AsyncSnapshot<List<dynamic>> news) {
+          if (!news.hasData &&
+              news.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator(
+              color: Colors.black,
+            );
+          }
+          if (news.hasError) {
+            return Center(child: Text(news.error.toString()));
+          }
+          return ListView.builder(
+            itemCount: (news.data)!.length,
+            itemBuilder: (context, index) {
+              return Container(
+                  margin: const EdgeInsets.all(9),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD3D3D3),
+                    borderRadius: const BorderRadius.all(Radius.circular(16)),
+                    border: Border.all(),
+                  ),
+                  padding: const EdgeInsets.all(13),
+                  child: NewsTile(market: news.data![index]));
+            },
           );
-        }
-        if (news.hasError) {
-          return Center(child: Text(news.error.toString()));
-        }
-        return ListView.separated(
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
-          itemCount: (news.data)!.length,
-          itemBuilder: (context, index) {
-            return NewsTile(market: news.data![index]);
-          },
-        );
-      },
+        },
+      ),
     );
   }
 
