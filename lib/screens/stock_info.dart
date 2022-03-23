@@ -1,42 +1,10 @@
 import 'dart:convert';
 
+import 'package:finndata_project/models/stock_info.dart';
 import 'package:finndata_project/repos/finn_api_repo.dart';
+
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-class StockChange {
-  final String symbol;
-  final double lastPrice;
-  final int timestamp;
-
-  StockChange(this.symbol, this.lastPrice, this.timestamp);
-
-  StockChange.fromJson(Map<String, dynamic> json)
-      : symbol = json['s'],
-        lastPrice = json['p'],
-        timestamp = json['t'];
-}
-
-class WSResponse {
-  final String type;
-  final List<StockChange> stockChanges;
-
-  WSResponse({required this.type, required this.stockChanges});
-
-  factory WSResponse.fromJson(Map<String, dynamic> json) {
-    final _type = json['type'] as String;
-
-    List<StockChange> _stockChanges = [];
-    if (_type == 'trade') {
-      for (var item in json['data']) {
-        final stockChange = StockChange.fromJson(item as Map<String, dynamic>);
-        _stockChanges.add(stockChange);
-      }
-    }
-
-    return WSResponse(type: _type, stockChanges: _stockChanges);
-  }
-}
 
 class StockInfoScreen extends StatefulWidget {
   const StockInfoScreen(
@@ -50,22 +18,34 @@ class StockInfoScreen extends StatefulWidget {
 }
 
 class _StockInfoScreenState extends State<StockInfoScreen> {
-  late Map<String, dynamic> _profile;
-  late Map<String, dynamic> _financials;
+  late WebSocketChannel _channel;
+
+  late Map<String, dynamic> _profile; // ignore: unused_field
+  late Map<String, dynamic> _financials; // ignore: unused_field
 
   double _currentRate = 0.0;
 
   _fetchContent() async {
-    await finnApiRepo.fetchCompanyProfile(widget.symbolQuery).then((response) {
-      setState(() {
-        _profile = response;
+    await finnApiRepo.fetchQuote(widget.symbolQuery)
+      .then((quoteResponse) => () {
+        if (quoteResponse.containsKey('c')) {
+          setState(() {
+            _currentRate = quoteResponse['c'];
+          });
+        }
       });
-    });
-    await finnApiRepo.fetchBasicFinancials(widget.symbolQuery).then((response) {
-      setState(() {
-        _financials = response;
+    await finnApiRepo.fetchCompanyProfile(widget.symbolQuery)
+      .then((profileResponse) {
+        setState(() {
+          _profile = profileResponse;
+        });
       });
-    });
+    await finnApiRepo.fetchBasicFinancials(widget.symbolQuery)
+      .then((financialsResponse) {
+        setState(() {
+          _financials = financialsResponse;
+        });
+      });
   }
 
   void _startPollingRates() {
@@ -84,8 +64,10 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
       }
     }
 
-    final WebSocketChannel _ =
-        finnApiRepo.initWSChannel(widget.symbolQuery, _processWSResponse);
+    _channel = finnApiRepo.initWSChannel(
+      widget.symbolQuery, _processWSResponse
+    );
+
   }
 
   @override
@@ -93,6 +75,12 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
     _fetchContent();
     _startPollingRates();
     super.initState();
+  }
+
+  @override
+  void deactivate() {
+    _channel.sink.close();
+    super.deactivate();
   }
 
   @override
@@ -109,19 +97,38 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
                 Tab(text: 'Description'),
                 Tab(text: 'Fundamentals'),
               ],
+              indicatorColor: Colors.black,
             ),
+            backgroundColor: Colors.black,
           ),
           body: TabBarView(children: [
             Container(
               child: Center(
-                  child: Text(
-                'Current price: $_currentRate\$',
-                style: const TextStyle(fontSize: 54),
-              )),
-              color: Colors.yellow.shade100,
+                child: Text(
+                  'Current price: $_currentRate\$',
+                  style: const TextStyle(fontSize: 54),
+                )
+              ),
+              color: Colors.white,
             ),
-            Text('$_profile'),
-            Text('$_financials'),
+            Container(
+              child: const Center(
+                child: Text(
+                  'Soon :)',
+                  style: TextStyle(fontSize: 54),
+                )
+              ),
+              color: Colors.white,
+            ),
+            Container(
+              child: const Center(
+                child: Text(
+                  'Soon :)',
+                  style: TextStyle(fontSize: 54),
+                )
+              ),
+              color: Colors.white,
+            ),
           ]),
         ),
       ),

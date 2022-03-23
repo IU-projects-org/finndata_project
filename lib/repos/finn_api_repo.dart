@@ -12,49 +12,41 @@ class FinnHubAPIRepository {
   final String _baseWSUrl = 'wss://ws.finnhub.io';
   final String _tokenParam = 'token=$token';
 
-  Future<Map<String, dynamic>> fetchCompanyProfile(String symbol) async {
+  Future<dynamic> _fetch(String url) async {
     try {
-      Response response = await _dio
-          .get('$_baseUrl/stock/profile2?symbol=$symbol&$_tokenParam');
+      Response response = await _dio.get(url);
       return response.data;
     } on Exception catch (exc) {
       throw Exception('Not found. Origin: $exc');
     }
+  }
+
+  Future<Map<String, dynamic>> fetchQuote(String symbol) async {
+    return await _fetch('$_baseUrl/quote?symbol=$symbol&$_tokenParam');
+  }
+
+  Future<Map<String, dynamic>> fetchCompanyProfile(String symbol) async {
+    return await _fetch('$_baseUrl/stock/profile2?symbol=$symbol&$_tokenParam');
   }
 
   Future<Map<String, dynamic>> fetchBasicFinancials(String symbol) async {
-    try {
-      Response response = await _dio
-          .get('$_baseUrl/stock/metric?symbol=$symbol&metric=all&$_tokenParam');
-      return response.data;
-    } on Exception catch (exc) {
-      throw Exception('Not found. Origin: $exc');
-    }
+    return await _fetch('$_baseUrl/stock/metric?symbol=$symbol&metric=all&$_tokenParam');
   }
 
-  fetchMarketNews(String category) async {
-    try {
-      Response response =
-          await _dio.get('$_baseUrl/news?category=$category&$_tokenParam');
-      return response.data as List;
-    } on Exception catch (exc) {
-      throw Exception('Not found. Origin: $exc');
-    }
+  Future<List<dynamic>> fetchMarketNews(String category) async {
+    return await _fetch('$_baseUrl/news?category=$category&$_tokenParam') as List;
   }
 
-  searchQuery(String q) async {
-    try {
-      Response response = await _dio.get('$_baseUrl/search?q=$q&$_tokenParam');
-      return response.data['result'] as List;
-    } on Exception catch (exc) {
-      throw Exception('Not found. Origin: $exc');
-    }
+  Future<List<dynamic>> searchQuery(String q) async {
+    var response = await _fetch('$_baseUrl/search?q=$q&$_tokenParam');
+    return response['result'] as List;
   }
 
   WebSocketChannel initWSChannel(String symbol, Handler<dynamic> handler) {
     // Init the channel
     final channel =
         WebSocketChannel.connect(Uri.parse('$_baseWSUrl?$_tokenParam'));
+
     // Subscribe to the changes of a particular symbol
     channel.sink.add(jsonEncode({'type': 'subscribe', 'symbol': symbol}));
 
