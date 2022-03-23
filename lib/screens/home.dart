@@ -12,8 +12,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   List<Widget> screens = [
-    MainScreen(),
-    SearchScreen(),
+    const MainScreen(),
+    const SearchScreen(),
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -25,15 +25,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xFF959595),
-        unselectedItemColor: Color(0xFF707070),
+        backgroundColor: const Color(0xFF959595),
+        unselectedItemColor: const Color(0xFF707070),
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,

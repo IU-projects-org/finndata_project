@@ -6,7 +6,7 @@ part 'symbol_result.g.dart';
 class SymbolResultModel {
   SymbolResultModel(
       this.description, this.type, this.displaySymbol, this.symbol);
-  String description, displaySymbol, symbol, type;
+  final String description, displaySymbol, symbol, type;
 
   factory SymbolResultModel.fromJson(Map<String, dynamic> json) =>
       _$SymbolResultModelFromJson(json);
