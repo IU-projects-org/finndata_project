@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class NewsTile extends StatelessWidget {
   const NewsTile({Key? key, required this.market}) : super(key: key);
   final MarketModel market;
+
   @override
   Widget build(BuildContext context) {
     return Column(

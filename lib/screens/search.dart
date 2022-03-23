@@ -13,6 +13,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
+
   @override
   Widget build(BuildContext context) {
     return Container(
