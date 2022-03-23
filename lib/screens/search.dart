@@ -1,4 +1,5 @@
 import 'package:finndata_project/repos/finn_api_repo.dart';
+import 'package:finndata_project/screens/stock_info.dart';
 import 'package:flutter/material.dart';
 
 import '../models/symbol_result.dart';
@@ -70,6 +71,15 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           subtitle: Text(symbolStock![index].description),
                           trailing: const Icon(Icons.arrow_forward),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => StockInfoScreen(
+                                    title: symbolStock![index].symbol,
+                                    symbolQuery: symbolStock![index].symbol),
+                              ),
+                            );
+                          },
                         ));
                       },
                     )
