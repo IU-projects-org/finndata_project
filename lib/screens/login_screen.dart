@@ -48,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontSize: 50,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 30),
                             Container(
@@ -119,34 +120,36 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                             const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignupScreen(),
-                                  ),
-                                );
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    "Don't have an Account?",
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text("Don't have an Account?",
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.black87),
+                                    textAlign: TextAlign.center),
+                                TextButton(
+                                  style: ButtonStyle(
+                                    overlayColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent),
                                   ),
-                                  Hero(
-                                    tag: '1',
-                                    child: Text(
-                                      'Sign Up',
-                                      style: TextStyle(
-                                          fontSize: 21,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                  child: const Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SignupScreen(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
                             )
                           ],
                         ),
