@@ -1,5 +1,4 @@
 import 'package:finndata_project/repos/auth_repo.dart';
-import 'package:finndata_project/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -113,11 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                   await authRepository.signIn(context,
                                       email: email, password: password);
-                                  await Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (routeContext) => const Home(),
-                                    ),
-                                  );
                                   setState(() {
                                     isLoading = false;
                                   });

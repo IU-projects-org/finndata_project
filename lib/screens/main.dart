@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<List<MarketModel>> getMarketNews() async {
-    var results = await finnApiRepo.fetchMarketNews('general') as List<dynamic>;
+    var results = await finnApiRepo.fetchMarketNews('general');
     List<MarketModel> news = results
         .map((value) => MarketModel.fromJson(value as Map<String, dynamic>))
         .toList();

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 
 import '../constants/constants.dart';
 import '../widgets/button.dart';
-import 'home.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -127,21 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   });
                                   await authRepository.signUp(context,
                                       email: email, password: password);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: Colors.blueGrey,
-                                      content: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Successfully Register!'),
-                                      ),
-                                      duration: Duration(seconds: 5),
-                                    ),
-                                  );
-                                  await Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (routeContext) => const Home(),
-                                    ),
-                                  );
+
                                   setState(() {
                                     isLoading = false;
                                   });

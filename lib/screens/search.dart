@@ -90,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   getQueryStocks(String query) async {
-    var results = await finnApiRepo.searchQuery(query) as List<dynamic>;
+    var results = await finnApiRepo.searchQuery(query);
     List<SymbolResultModel> resultModel = results
         .map((value) =>
             SymbolResultModel.fromJson(value as Map<String, dynamic>))
