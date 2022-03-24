@@ -27,7 +27,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
 
   _fetchContent() async {
     await finnApiRepo.fetchQuote(widget.symbolQuery)
-      .then((quoteResponse) => () {
+      .then((quoteResponse) {
         if (quoteResponse.containsKey('c')) {
           setState(() {
             _currentRate = quoteResponse['c'];
