@@ -48,27 +48,48 @@ class _HomeState extends State<Home> {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                        title: const Text('Exit from application'),
-                        content: const Text('Are you sure?'),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                        title: const Text('Exiting the application'),
+                        content: const Text('Are you sure you want to exit?'),
+                        actionsAlignment: MainAxisAlignment.spaceAround,
                         actions: [
                           TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('No'),
-                          ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'No',
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.black54.withOpacity(0.1)))),
                           TextButton(
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              await _signOut();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()),
-                              );
-                            },
-                            child: const Text('Yes'),
-                          )
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                await _signOut();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoginScreen()),
+                                );
+                              },
+                              child: const Text(
+                                'Yes',
+                                style: TextStyle(
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.black54.withOpacity(0.1))))
                         ],
                       ));
             },
