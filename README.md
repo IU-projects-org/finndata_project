@@ -31,8 +31,8 @@ you first need to either SignIn or SignUp, then you'll be in Home Screen,
     <td align="center">SignUp Screen</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/login.png" width=300 height=630></td>
-    <td><img src="/screenshots/register.png" width=300 height=630></td>
+    <td><img src="/screenshots/login.png" width=300 height=533></td>
+    <td><img src="/screenshots/register.png" width=300 height=533></td>
   </tr>
 </table>
 
@@ -66,7 +66,7 @@ You can also log out from our application if you want or stay if you changed you
     <td align="center">Log Out</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/logout.png" width=300 height=630></td>
+    <td><img src="/screenshots/logout.png" width=300 height=533></td>
   </tr>
 </table>
 
