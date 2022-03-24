@@ -21,6 +21,8 @@ class LoginSignupButton extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.black38),
+          foregroundColor: MaterialStateProperty.all(Colors.white),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
