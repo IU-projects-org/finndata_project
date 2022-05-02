@@ -35,69 +35,62 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await getQueryStocks(_controller.text);
+                      final resultModel =
+                          await finnApiRepo.getQueryStocks(_controller.text);
+                      setState(() {
+                        symbolStock = resultModel;
+                      });
                     },
+                    style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: const Text(
                       'Search',
                       style: TextStyle(color: Colors.white),
                     ),
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
                   ),
                 ],
               ),
-              symbolStock != null
-                  ? Container(
-                      padding: const EdgeInsets.all(13),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Results: ${symbolStock!.length}",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ))
-                  : Wrap(),
-              symbolStock != null
-                  ? ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: symbolStock!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Card(
-                            child: ListTile(
-                          title: const Text(
-                            "Description",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+              if (symbolStock != null)
+                Container(
+                    padding: const EdgeInsets.all(13),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Results: ${symbolStock!.length}',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ))
+              else
+                Wrap(),
+              if (symbolStock != null)
+                ListView.builder(
+                  itemCount: symbolStock!.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Card(
+                        child: ListTile(
+                      title: const Text(
+                        'Description',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(symbolStock![index].description),
+                      trailing: const Icon(Icons.arrow_forward),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => StockInfoScreen(
+                                title: symbolStock![index].symbol,
+                                symbolQuery: symbolStock![index].symbol),
                           ),
-                          subtitle: Text(symbolStock![index].description),
-                          trailing: const Icon(Icons.arrow_forward),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => StockInfoScreen(
-                                    title: symbolStock![index].symbol,
-                                    symbolQuery: symbolStock![index].symbol),
-                              ),
-                            );
-                          },
-                        ));
+                        );
                       },
-                    )
-                  : Wrap(),
+                    ));
+                  },
+                )
+              else
+                Wrap(),
             ],
           ),
         ));
-  }
-
-  getQueryStocks(String query) async {
-    var results = await finnApiRepo.searchQuery(query);
-    List<SymbolResultModel> resultModel = results
-        .map((value) =>
-            SymbolResultModel.fromJson(value as Map<String, dynamic>))
-        .toList();
-    setState(() {
-      symbolStock = resultModel;
-    });
-    // return result;
   }
 }

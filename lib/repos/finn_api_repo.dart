@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../models/market_news.dart';
+import '../models/symbol_result.dart';
+
 typedef Handler<String> = void Function(String event);
 const String token = 'c8rdafiad3i8tv0k57n0';
 
@@ -14,7 +17,7 @@ class FinnHubAPIRepository {
 
   Future<dynamic> _fetch(String url) async {
     try {
-      Response response = await _dio.get(url);
+      final Response response = await _dio.get(url);
       return response.data;
     } on Exception catch (exc) {
       throw Exception('Not found. Origin: $exc');
@@ -30,15 +33,17 @@ class FinnHubAPIRepository {
   }
 
   Future<Map<String, dynamic>> fetchBasicFinancials(String symbol) async {
-    return await _fetch('$_baseUrl/stock/metric?symbol=$symbol&metric=all&$_tokenParam');
+    return await _fetch(
+        '$_baseUrl/stock/metric?symbol=$symbol&metric=all&$_tokenParam');
   }
 
   Future<List<dynamic>> fetchMarketNews(String category) async {
-    return await _fetch('$_baseUrl/news?category=$category&$_tokenParam') as List;
+    return await _fetch('$_baseUrl/news?category=$category&$_tokenParam')
+        as List;
   }
 
   Future<List<dynamic>> searchQuery(String q) async {
-    var response = await _fetch('$_baseUrl/search?q=$q&$_tokenParam');
+    final response = await _fetch('$_baseUrl/search?q=$q&$_tokenParam');
     return response['result'] as List;
   }
 
@@ -57,6 +62,24 @@ class FinnHubAPIRepository {
     );
 
     return channel;
+  }
+
+  Future<List<MarketModel>> getMarketNews() async {
+    final results = await fetchMarketNews('general');
+    final List<MarketModel> news = results
+        .map((value) => MarketModel.fromJson(value as Map<String, dynamic>))
+        .toList();
+    return news;
+  }
+
+  Future<List<SymbolResultModel>> getQueryStocks(String query) async {
+    final results = await searchQuery(query);
+    final List<SymbolResultModel> resultModel = results
+        .map((value) =>
+            SymbolResultModel.fromJson(value as Map<String, dynamic>))
+        .toList();
+    return resultModel;
+    // return result;
   }
 }
 

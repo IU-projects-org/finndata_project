@@ -1,9 +1,9 @@
-import 'package:finndata_project/screens/main.dart';
+import 'package:finndata_project/screens/market_news.dart';
 import 'package:finndata_project/screens/search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'login_screen.dart';
+import 'login.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,14 +14,14 @@ class Home extends StatefulWidget {
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-_signOut() async {
+Future<void> _signOut() async {
   await _firebaseAuth.signOut();
 }
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   List<Widget> screens = [
-    const MainScreen(),
+    const MarketNews(),
     const SearchScreen(),
   ];
 
@@ -59,37 +59,37 @@ class _HomeState extends State<Home> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.black54.withOpacity(0.1))),
                               child: const Text(
                                 'No',
                                 style: TextStyle(
                                     color: Colors.black54,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24),
-                              ),
-                              style: ButtonStyle(
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.black54.withOpacity(0.1)))),
+                              )),
                           TextButton(
                               onPressed: () async {
                                 Navigator.of(context).pop();
                                 await _signOut();
-                                Navigator.push(
+                                await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const LoginScreen()),
                                 );
                               },
+                              style: ButtonStyle(
+                                  overlayColor: MaterialStateProperty.all(
+                                      Colors.black54.withOpacity(0.1))),
                               child: const Text(
                                 'Yes',
                                 style: TextStyle(
                                     color: Colors.black54,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24),
-                              ),
-                              style: ButtonStyle(
-                                  overlayColor: MaterialStateProperty.all(
-                                      Colors.black54.withOpacity(0.1))))
+                              ))
                         ],
                       ));
             },

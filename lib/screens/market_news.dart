@@ -1,22 +1,21 @@
-import 'package:finndata_project/repos/finn_api_repo.dart';
 import 'package:flutter/material.dart';
 
-import '../models/market_news.dart';
+import '../repos/finn_api_repo.dart';
 import '../widgets/news_tile.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class MarketNews extends StatefulWidget {
+  const MarketNews({Key? key}) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _MarketNewsState createState() => _MarketNewsState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MarketNewsState extends State<MarketNews> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: FutureBuilder(
-        future: getMarketNews(),
+        future: finnApiRepo.getMarketNews(),
         builder: (context, AsyncSnapshot<List<dynamic>> news) {
           if (!news.hasData &&
               news.connectionState == ConnectionState.waiting) {
@@ -44,13 +43,5 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
     );
-  }
-
-  Future<List<MarketModel>> getMarketNews() async {
-    var results = await finnApiRepo.fetchMarketNews('general');
-    List<MarketModel> news = results
-        .map((value) => MarketModel.fromJson(value as Map<String, dynamic>))
-        .toList();
-    return news;
   }
 }

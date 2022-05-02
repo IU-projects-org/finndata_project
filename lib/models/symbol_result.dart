@@ -7,10 +7,10 @@ class SymbolResultModel {
   SymbolResultModel(
       this.description, this.type, this.displaySymbol, this.symbol);
 
-  final String description, displaySymbol, symbol, type;
-
   factory SymbolResultModel.fromJson(Map<String, dynamic> json) =>
       _$SymbolResultModelFromJson(json);
+
+  final String description, displaySymbol, symbol, type;
 
   Map<String, dynamic> toJson() => _$SymbolResultModelToJson(this);
 }
