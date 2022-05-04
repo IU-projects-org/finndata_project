@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:finndata_project/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'bloc/auth/auth_bloc.dart';
 import 'repos/auth_repo.dart';
@@ -11,6 +15,9 @@ import 'screens/home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final Directory directory =
+      await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
   runApp(
     const MyApp(),
   );

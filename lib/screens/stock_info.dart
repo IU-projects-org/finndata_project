@@ -40,7 +40,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
       });
     });
     await finnApiRepo
-        .fetchBasicFinancials(widget.symbolQuery)
+        .fetchBasicFinancial(widget.symbolQuery)
         .then((financialResponse) {
       setState(() {
         _financial = financialResponse;

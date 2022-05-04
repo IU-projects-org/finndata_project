@@ -35,11 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      final resultModel =
-                          await finnApiRepo.getQueryStocks(_controller.text);
-                      setState(() {
-                        symbolStock = resultModel;
-                      });
+                      _updateList();
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: const Text(
@@ -92,5 +88,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ],
           ),
         ));
+  }
+
+  Future<void> _updateList() async {
+    final resultModel = await finnApiRepo.getQueryStocks(_controller.text);
+    setState(() {
+      symbolStock = resultModel;
+    });
   }
 }
