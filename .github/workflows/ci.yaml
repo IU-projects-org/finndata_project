@@ -43,5 +43,20 @@ jobs:
           name: release-apk
           path: build/app/outputs/apk/release/app-release.apk
 
+  pre-release:
+    if: github.event.pull_request.merged == true
+    name: Pre-release stage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prelease: true
+          title: Development pre-release
+          files: |
+            *.apk
+
+
 # The credit for this CI configuration goes to
 # https://gist.github.com/aagarwal1012/eb2551683d81cf47d60868ab607520b1
