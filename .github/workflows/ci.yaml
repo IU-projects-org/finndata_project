@@ -54,9 +54,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Pre-release ${{ github.ref }}
+          release_name: Pre-release ${{ github.sha }}@{{ github.ref }}
           body: |
-            Regular development pre-release ${{ github.ref }}
+            Regular development pre-release ${{ github.sha }} at ${{ github.ref }}
           draft: false
           prerelease: true
 
