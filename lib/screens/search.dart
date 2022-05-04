@@ -1,7 +1,11 @@
-import 'package:finndata_project/repos/finn_api_repo.dart';
+import 'dart:math';
+
 import 'package:finndata_project/screens/stock_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/finn/api.dart';
+import '../models/network_exceptions.dart';
 import '../models/symbol_result.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -14,6 +18,12 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
+  String query = '';
+  @override
+  void initState() {
+    BlocProvider.of<APICubit>(context).loadSearchResults(query);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +45,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await _updateList();
+                      await BlocProvider.of<APICubit>(context)
+                          .loadSearchResults(query);
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: const Text(
@@ -45,55 +56,51 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ],
               ),
-              if (symbolStock != null)
-                Container(
-                    padding: const EdgeInsets.all(13),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Results: ${symbolStock!.length}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ))
-              else
-                Wrap(),
-              if (symbolStock != null)
-                ListView.builder(
-                  itemCount: symbolStock!.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Card(
+              const SizedBox(
+                width: 13,
+              ),
+              BlocBuilder<APICubit, APIState>(
+                  builder: (BuildContext context, APIState state) {
+                return state.when(loading: () {
+                  return const Center(child: CircularProgressIndicator());
+                }, idle: () {
+                  return Container();
+                }, data: (symbolStock) {
+                  return ListView.builder(
+                    itemCount: symbolStock
+                        .sublist(0, min(symbolStock.length as int, 100))
+                        .length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Card(
                         child: ListTile(
-                      title: const Text(
-                        'Description',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(symbolStock![index].description),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => StockInfoScreen(
-                                title: symbolStock![index].symbol,
-                                symbolQuery: symbolStock![index].symbol),
+                          title: const Text(
+                            'Description',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                        );
-                      },
-                    ));
-                  },
-                )
-              else
-                Wrap(),
+                          subtitle: Text(symbolStock[index].description),
+                          trailing: const Icon(Icons.arrow_forward),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => StockInfoScreen(
+                                    title: symbolStock[index].symbol,
+                                    symbolQuery: symbolStock[index].symbol),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                }, error: (NetworkExceptions error) {
+                  return Center(
+                      child: Text(NetworkExceptions.getErrorMessage(error)));
+                });
+              }),
             ],
           ),
         ));
-  }
-
-  Future<void> _updateList() async {
-    final resultModel = await finnApiRepo.getQueryStocks(_controller.text);
-    setState(() {
-      symbolStock = resultModel;
-    });
   }
 }

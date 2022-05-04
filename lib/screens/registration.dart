@@ -162,7 +162,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _authenticateWithEmailAndPassword(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      // If email is valid adding new event [SignUpRequested].
       BlocProvider.of<AuthBloc>(context).add(
         SignUpRequested(email, password),
       );
