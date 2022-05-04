@@ -8,11 +8,11 @@ class MarketModel {
       this.headline, this.source, this.summary,
       {required this.id});
 
-  final int id, datetime;
-  final String category, headline, image, related, source, summary, url;
-
   factory MarketModel.fromJson(Map<String, dynamic> json) =>
       _$MarketModelFromJson(json);
+
+  final int id, datetime;
+  final String category, headline, image, related, source, summary, url;
 
   Map<String, dynamic> toJson() => _$MarketModelToJson(this);
 }

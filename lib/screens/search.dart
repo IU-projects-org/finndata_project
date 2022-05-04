@@ -1,7 +1,11 @@
-import 'package:finndata_project/repos/finn_api_repo.dart';
+import 'dart:math';
+
 import 'package:finndata_project/screens/stock_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/finn/api.dart';
+import '../models/network_exceptions.dart';
 import '../models/symbol_result.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -14,6 +18,12 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
+  String query = '';
+  @override
+  void initState() {
+    BlocProvider.of<APICubit>(context).loadSearchResults(query);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,69 +45,62 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      await getQueryStocks(_controller.text);
+                      await BlocProvider.of<APICubit>(context)
+                          .loadSearchResults(query);
                     },
+                    style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: const Text(
                       'Search',
                       style: TextStyle(color: Colors.white),
                     ),
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
                   ),
                 ],
               ),
-              symbolStock != null
-                  ? Container(
-                      padding: const EdgeInsets.all(13),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Results: ${symbolStock!.length}",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ))
-                  : Wrap(),
-              symbolStock != null
-                  ? ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: symbolStock!.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return Card(
-                            child: ListTile(
+              const SizedBox(
+                width: 13,
+              ),
+              BlocBuilder<APICubit, APIState>(
+                  builder: (BuildContext context, APIState state) {
+                return state.when(loading: () {
+                  return const Center(child: CircularProgressIndicator());
+                }, idle: () {
+                  return Container();
+                }, data: (symbolStock) {
+                  return ListView.builder(
+                    itemCount: symbolStock
+                        .sublist(0, min(symbolStock.length as int, 100))
+                        .length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
                           title: const Text(
-                            "Description",
+                            'Description',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text(symbolStock![index].description),
+                          subtitle: Text(symbolStock[index].description),
                           trailing: const Icon(Icons.arrow_forward),
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => StockInfoScreen(
-                                    title: symbolStock![index].symbol,
-                                    symbolQuery: symbolStock![index].symbol),
+                                    title: symbolStock[index].symbol,
+                                    symbolQuery: symbolStock[index].symbol),
                               ),
                             );
                           },
-                        ));
-                      },
-                    )
-                  : Wrap(),
+                        ),
+                      );
+                    },
+                  );
+                }, error: (NetworkExceptions error) {
+                  return Center(
+                      child: Text(NetworkExceptions.getErrorMessage(error)));
+                });
+              }),
             ],
           ),
         ));
-  }
-
-  getQueryStocks(String query) async {
-    var results = await finnApiRepo.searchQuery(query);
-    List<SymbolResultModel> resultModel = results
-        .map((value) =>
-            SymbolResultModel.fromJson(value as Map<String, dynamic>))
-        .toList();
-    setState(() {
-      symbolStock = resultModel;
-    });
-    // return result;
   }
 }
