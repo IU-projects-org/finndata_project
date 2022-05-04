@@ -48,15 +48,17 @@ jobs:
     name: Pre-release stage
     runs-on: ubuntu-latest
     steps:
-      - uses: marvinpinto/action-automatic-releases@latest
+      - uses: actions/checkout@v2
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prelease: true
-          title: Development pre-release
-          files: |
-            *.apk
-
+          tag_name: ${{ github.ref }}
+          release_name: Pre-release ${{ github.ref }}
+          body: |
+            Regular development pre-release ${{ github.ref }}
+          draft: false
+          prerelease: true
 
 # The credit for this CI configuration goes to
 # https://gist.github.com/aagarwal1012/eb2551683d81cf47d60868ab607520b1
