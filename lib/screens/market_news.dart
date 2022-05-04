@@ -28,7 +28,7 @@ class _MarketNewsState extends State<MarketNews> {
         builder: (BuildContext context, APIState<List<MarketModel>> state) {
           return state.when(
             loading: () {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
             idle: () {
               return Container();
@@ -49,7 +49,6 @@ class _MarketNewsState extends State<MarketNews> {
                       child: NewsTile(market: news[index]));
                 },
               );
-              ;
             },
             error: (NetworkExceptions error) {
               return Center(

@@ -35,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      _updateList();
+                      await _updateList();
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.black),
                     child: const Text(

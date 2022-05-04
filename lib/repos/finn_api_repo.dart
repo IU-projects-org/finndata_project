@@ -7,7 +7,7 @@ import '../models/api_result.dart';
 import '../models/market_news.dart';
 import '../models/network_exceptions.dart';
 import '../models/symbol_result.dart';
-import '../utils/dio_client.dart';
+import '../utils/api_rest.dart';
 
 typedef Handler<String> = void Function(String event);
 const String _token = 'c8s8j92ad3ifkeao31rg';
@@ -91,9 +91,9 @@ class FinnHubAPIRepository {
   //     return ApiResult.failure(error: NetworkExceptions.getDioException(e));
   //   }
   // }
-  getQueryStocks(String query) async {
+  Future<List<SymbolResultModel>> getQueryStocks(String query) async {
     final results = await finnApiRepo.searchQuery(query);
-    List<SymbolResultModel> resultModel = results
+    final List<SymbolResultModel> resultModel = results
         .map((value) =>
             SymbolResultModel.fromJson(value as Map<String, dynamic>))
         .toList();
