@@ -16,7 +16,6 @@ class _MarketNewsState extends State<MarketNews> {
   @override
   void initState() {
     BlocProvider.of<APICubit>(context).loadNews();
-
     super.initState();
   }
 

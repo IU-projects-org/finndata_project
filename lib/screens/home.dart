@@ -6,6 +6,8 @@ import 'package:finndata_project/widgets/settings_buttom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'my_stocks.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -18,12 +20,18 @@ class _HomeState extends State<Home> {
   List<Widget> screens = [
     const MarketNews(),
     const SearchScreen(),
+    const MyStocksList(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -39,7 +47,11 @@ class _HomeState extends State<Home> {
             backgroundColor: Colors.black,
             automaticallyImplyLeading: false,
             title: Text(
-              _selectedIndex == 0 ? 'Market News' : 'Search on Symbol Stock',
+              _selectedIndex == 0
+                  ? 'Market News'
+                  : _selectedIndex == 1
+                      ? 'Search on Symbol Stock'
+                      : 'Saved Stocks',
               style: const TextStyle(color: Colors.white),
             ),
             actions: <Widget>[
@@ -59,6 +71,7 @@ class _HomeState extends State<Home> {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
               BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: ''),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Colors.white,

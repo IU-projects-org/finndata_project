@@ -1,4 +1,4 @@
-import 'package:finndata_project/constants/appConstants.dart';
+import 'package:finndata_project/constants/app_constants.dart';
 import 'package:finndata_project/utils/local_storage_service.dart';
 import 'package:flutter/material.dart';
 
