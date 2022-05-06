@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:finndata_project/screens/login.dart';
+import 'package:finndata_project/themes/themes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,7 @@ class MyApp extends StatelessWidget {
           authRepository: RepositoryProvider.of<AuthRepository>(context),
         ),
         child: MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: standardTheme(),
           debugShowCheckedModeBanner: false,
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
