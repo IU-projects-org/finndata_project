@@ -19,6 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
   String query = '';
+
   @override
   void initState() {
     BlocProvider.of<APICubit>(context).loadSearchResults(query);
@@ -48,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       await BlocProvider.of<APICubit>(context)
                           .loadSearchResults(query);
                     },
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
+                    style: Theme.of(context).elevatedButtonTheme.style,
                     child: const Text(
                       'Search',
                       style: TextStyle(color: Colors.white),
@@ -62,7 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
               BlocBuilder<APICubit, APIState>(
                   builder: (BuildContext context, APIState state) {
                 return state.when(loading: () {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: CircularProgressIndicator(
+                          color:
+                              Theme.of(context).progressIndicatorTheme.color));
                 }, idle: () {
                   return Container();
                 }, data: (symbolStock) {
@@ -74,13 +78,27 @@ class _SearchScreenState extends State<SearchScreen> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Card(
+                        color: Theme.of(context).cardColor,
                         child: ListTile(
-                          title: const Text(
+                          title: Text(
                             'Description',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.color),
                           ),
-                          subtitle: Text(symbolStock[index].description),
-                          trailing: const Icon(Icons.arrow_forward),
+                          subtitle: Text(
+                            symbolStock[index].description,
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.color),
+                          ),
+                          trailing: Icon(Icons.arrow_forward,
+                              color: Theme.of(context).iconTheme.color),
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(

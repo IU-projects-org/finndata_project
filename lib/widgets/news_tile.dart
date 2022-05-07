@@ -37,8 +37,12 @@ class NewsTile extends StatelessWidget {
             ),
             Column(
               children: [
-                Text(market.category),
-                Text(market.source),
+                Text(market.category,
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.headline3?.color)),
+                Text(market.source,
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.headline3?.color)),
               ],
             )
           ],
@@ -46,16 +50,22 @@ class NewsTile extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        const Align(
+        Align(
           alignment: Alignment.topLeft,
           child: Text(
             'Summary',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.headline3?.color),
           ),
         ),
         Align(
           alignment: Alignment.topLeft,
-          child: Text(market.headline),
+          child: Text(
+            market.headline,
+            style:
+                TextStyle(color: Theme.of(context).textTheme.headline3?.color),
+          ),
         ),
       ],
     );

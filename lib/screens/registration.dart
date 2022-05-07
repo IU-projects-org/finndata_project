@@ -103,6 +103,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Column(
                             children: [
                               TextFormField(
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline3
+                                      ?.color,
+                                ),
                                 keyboardType: TextInputType.emailAddress,
                                 onChanged: (value) {
                                   email = value;
@@ -114,7 +120,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return null;
                                 },
                                 textAlign: TextAlign.center,
-                                decoration: kTextFieldDecoration.copyWith(
+                                decoration:
+                                    kTextFieldDecoration(context).copyWith(
                                   hintText: 'Email',
                                   prefixIcon: Icon(
                                     Icons.email,
@@ -124,6 +131,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               const SizedBox(height: 30),
                               TextFormField(
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline3
+                                      ?.color,
+                                ),
                                 obscureText: true,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -135,12 +148,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   password = value;
                                 },
                                 textAlign: TextAlign.center,
-                                decoration: kTextFieldDecoration.copyWith(
-                                    hintText: 'Password',
-                                    prefixIcon: Icon(
-                                      Icons.lock,
-                                      color: Theme.of(context).iconTheme.color,
-                                    )),
+                                decoration:
+                                    kTextFieldDecoration(context).copyWith(
+                                        hintText: 'Password',
+                                        prefixIcon: Icon(
+                                          Icons.lock,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                        )),
                               ),
                             ],
                           ),

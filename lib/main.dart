@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           authRepository: RepositoryProvider.of<AuthRepository>(context),
         ),
         child: MaterialApp(
-          theme: standardTheme(),
+          theme: blackTheme(),
           debugShowCheckedModeBanner: false,
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),

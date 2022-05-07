@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
 
-
-const LargeTextSize = 26.0;
-const MediumTextSize = 20.0;
-const BodyTextSize = 16.0;
-
-const String FontNameDefault = 'PoiterOne';
-const String FontNameTitle = 'Montserrat';
-
-Color kPrimaryColor = Color(0xFF28292E);
-
-// Color(0xFF28292E);
 Color? standardBackgroundColor = Colors.grey[200];
 
-Color blackBackgroundColor = Color(0xFF434343);
+Color blackBackgroundColor = const Color(0xFF434343);
 
-//Color kPrimaryColor = Color(0xFFEC407A);
-Color kSecondaryColor = Color(0xFFEF9A9A);
-// Color kSecondaryColor = Color(0xFFD6D6D6);
-Color kBackgroundColor = Color(0xFF28292E);
+Color blackColor = Colors.black;
 
-//Color kAccentColor = Color(0xFF8FECFF);
-Color kAccentColor = Colors.red;
+Color whiteColor = Colors.white;
+
+Color standardCardColor = const Color(0xFFD3D3D3);
+
+Color blackCardColor = const Color(0xFF606060);

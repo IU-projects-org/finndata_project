@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 
 ThemeData standardTheme() => ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: kPrimaryColor,
+    brightness: Brightness.light,
+    cardColor: standardCardColor,
+    primaryColor: whiteColor,
     backgroundColor: standardBackgroundColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -18,13 +19,17 @@ ThemeData standardTheme() => ThemeData(
         backgroundColor: MaterialStateProperty.all(Colors.black45),
       ),
     ),
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       headline3: TextStyle(
-          fontSize: 50, color: Colors.black, fontWeight: FontWeight.bold),
+          fontSize: 50, color: blackColor, fontWeight: FontWeight.bold),
     ),
-    iconTheme: const IconThemeData(color: Colors.black));
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: blackColor),
+    iconTheme: IconThemeData(color: blackColor));
 
 ThemeData blackTheme() => ThemeData(
+    brightness: Brightness.dark,
+    cardColor: blackCardColor,
+    primaryColor: whiteColor,
     backgroundColor: blackBackgroundColor,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -38,8 +43,9 @@ ThemeData blackTheme() => ThemeData(
         backgroundColor: MaterialStateProperty.all(Colors.black45),
       ),
     ),
-    textTheme: const TextTheme(
+    textTheme: TextTheme(
       headline3: TextStyle(
-          fontSize: 50, color: Colors.white, fontWeight: FontWeight.bold),
+          fontSize: 50, color: whiteColor, fontWeight: FontWeight.bold),
     ),
-    iconTheme: const IconThemeData(color: Colors.white));
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: whiteColor),
+    iconTheme: IconThemeData(color: whiteColor));

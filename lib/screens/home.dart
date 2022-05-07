@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
               )
             ],
           ),
-          backgroundColor: Colors.grey[200],
+          backgroundColor: Theme.of(context).backgroundColor,
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.black,
             unselectedItemColor: const Color(0xFF707070),
