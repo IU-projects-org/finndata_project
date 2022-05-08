@@ -48,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     style: Theme.of(context).elevatedButtonTheme.style,
                     child: const Text(
                       'Search',
-                      style: TextStyle(color: Colors.white),
+                      // style: TextStyle(color: Theme.of(context).),
                     ),
                   ),
                 ],

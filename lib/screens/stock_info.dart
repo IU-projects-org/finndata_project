@@ -83,53 +83,21 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              widget.title,
-              style: TextStyle(color: Theme.of(context).primaryColor),
-            ),
-            bottom: TabBar(
-              labelColor: Theme.of(context).primaryColor,
-              tabs: const [
-                Tab(text: 'Details'),
-                Tab(text: 'Description'),
-                Tab(text: 'Fundamentals'),
-              ],
-              indicatorColor: Colors.black,
-            ),
-            backgroundColor: Colors.black,
-          ),
-          body: TabBarView(children: [
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: Center(
-                  child: Text(
-                'Current price: $_currentRate\$',
-                style: const TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
-              )),
-            ),
-          ]),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
+        backgroundColor: Colors.black,
+      ),
+      body: Container(
+        color: Theme.of(context).backgroundColor,
+        child: Center(
+            child: Text(
+          'Current price: $_currentRate\$',
+          style: const TextStyle(fontSize: 54),
+        )),
       ),
     );
   }
