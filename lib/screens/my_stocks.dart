@@ -35,7 +35,7 @@ class MyStocksList extends StatelessWidget {
                 child: ListTile(
                   title: Text(
                     labels['details_tile']['description'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(myStocks[index].description),
                   trailing: Row(
