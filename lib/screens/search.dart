@@ -5,7 +5,8 @@ import 'package:finndata_project/screens/stock_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/finn/api.dart';
+import '../bloc/finn/api_cubit.dart';
+import '../bloc/finn/api_state.dart';
 import '../models/network_exceptions.dart';
 import '../models/symbol_result.dart';
 import '../utils/local_storage_service.dart';
@@ -20,11 +21,6 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
-  @override
-  void initState() {
-    BlocProvider.of<APICubit>(context).loadSearchResults('');
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

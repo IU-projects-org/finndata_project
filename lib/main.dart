@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'bloc/auth/auth_bloc.dart';
+import 'bloc/finn/api_cubit.dart';
 import 'repos/auth_repo.dart';
+import 'repos/finn_api_repo.dart';
 import 'screens/home.dart';
 
 Future<void> main() async {
@@ -26,12 +28,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => AuthRepository(),
-      child: BlocProvider(
-        create: (context) => AuthBloc(
-          authRepository: RepositoryProvider.of<AuthRepository>(context),
-        ),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (_) => AuthRepository()),
+        RepositoryProvider(create: (_) => FinnHubAPIRepository()),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(
+              authRepository: RepositoryProvider.of<AuthRepository>(context),
+            ),
+          ),
+          BlocProvider<APICubit>(
+            create: (context) => APICubit(
+              apiRepository:
+                  RepositoryProvider.of<FinnHubAPIRepository>(context),
+            ),
+          ),
+        ],
         child: MaterialApp(
           theme: ThemeData(
             primarySwatch: Colors.blue,

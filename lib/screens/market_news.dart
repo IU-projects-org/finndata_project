@@ -1,7 +1,8 @@
-import 'package:finndata_project/bloc/finn/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/finn/api_cubit.dart';
+import '../bloc/finn/api_state.dart';
 import '../models/network_exceptions.dart';
 import '../widgets/news_tile.dart';
 
@@ -15,7 +16,6 @@ class MarketNews extends StatefulWidget {
 class _MarketNewsState extends State<MarketNews> {
   @override
   void initState() {
-    BlocProvider.of<APICubit>(context).loadNews();
     super.initState();
   }
 
