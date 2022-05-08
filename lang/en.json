@@ -1,0 +1,9 @@
+{
+  "settings_screen": {
+  "title": "Settings",
+    "theme_mode": ["Light","Dark"],
+    "language_label": "Language",
+    "logout_button": "Logout"
+  },
+  "app_bar_title": "Translation"
+}

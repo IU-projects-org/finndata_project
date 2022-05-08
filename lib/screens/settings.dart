@@ -23,7 +23,10 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text('Settings', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+            const Text(
+              'Settings',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -64,7 +67,10 @@ class _SettingsState extends State<Settings> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Language: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                const Text(
+                  'Language: ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
                 DropdownButton<String>(
                   value: appSettings.language,
                   onChanged: (String? newValue) {
@@ -88,7 +94,7 @@ class _SettingsState extends State<Settings> {
             const SizedBox(),
             const SizedBox(),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.black),
+              style: Theme.of(context).elevatedButtonTheme.style,
               child: const Text('Logout'),
               onPressed: () async {
                 await logOutShowDialog(context);
