@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:quiver/core.dart';
 
 part 'symbol_result.g.dart';
 
-
+@immutable
 @JsonSerializable(includeIfNull: true)
 @HiveType(typeId: 1)
 class SymbolResultModel {
@@ -27,12 +28,12 @@ class SymbolResultModel {
   @override
   bool operator ==(Object other) =>
       // ignore: avoid_bool_literals_in_conditional_expressions
-      (other is SymbolResultModel) ? (
-        description == other.description &&
-        displaySymbol == other.displaySymbol &&
-        symbol == other.symbol &&
-        type == other.type
-      ) : false;
+      (other is SymbolResultModel)
+          ? (description == other.description &&
+              displaySymbol == other.displaySymbol &&
+              symbol == other.symbol &&
+              type == other.type)
+          : false;
 
   @override
   int get hashCode => hash4(description, displaySymbol, symbol, type);
