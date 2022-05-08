@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
@@ -53,10 +54,19 @@ class DioClient {
       );
       return response.data;
     } on SocketException catch (e) {
+      // await FirebaseCrashlytics.instance.log(e.toString());
+      // await FirebaseCrashlytics.instance
+      //     .recordFlutterError(FlutterErrorDetails(exception: e));
       throw SocketException(e.toString());
-    } on FormatException catch (_) {
+    } on FormatException catch (e) {
+      // await FirebaseCrashlytics.instance.log(e.toString());
+      // await FirebaseCrashlytics.instance
+      //     .recordFlutterError(FlutterErrorDetails(exception: e));
       throw const FormatException('Unable to process the data');
     } catch (e) {
+      await FirebaseCrashlytics.instance.log(e.toString());
+      await FirebaseCrashlytics.instance
+          .recordFlutterError(FlutterErrorDetails(exception: e));
       rethrow;
     }
   }

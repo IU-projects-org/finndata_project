@@ -32,7 +32,10 @@ class MyStocksList extends StatelessWidget {
                     'Description',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text(myStocks[index].description),
+                  subtitle: Text(
+                    myStocks[index].description,
+                    key: favouriteDescriptionKey,
+                  ),
                   trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: const [Icon(Icons.arrow_forward)]),

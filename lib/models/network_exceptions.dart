@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'network_exceptions.freezed.dart';
@@ -108,11 +110,20 @@ abstract class NetworkExceptions with _$NetworkExceptions {
         } else {
           networkExceptions = const NetworkExceptions.unexpectedError();
         }
+        // FirebaseCrashlytics.instance.log('Network Exception');
+        // FirebaseCrashlytics.instance.recordFlutterError(
+        //     FlutterErrorDetails(exception: networkExceptions));
         return networkExceptions;
       } on FormatException {
+        // FirebaseCrashlytics.instance.log('Format Exception');
+        // FirebaseCrashlytics.instance.recordFlutterError(
+        //     const FlutterErrorDetails(exception: 'Format Exception'));
         // Helper.printError(e.toString());
         return const NetworkExceptions.formatException();
-      } catch (_) {
+      } catch (e) {
+        FirebaseCrashlytics.instance.log(e.toString());
+        FirebaseCrashlytics.instance
+            .recordFlutterError(FlutterErrorDetails(exception: e));
         return const NetworkExceptions.unexpectedError();
       }
     } else {

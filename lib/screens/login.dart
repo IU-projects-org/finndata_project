@@ -1,3 +1,4 @@
+import 'package:finndata_project/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   children: [
                                     TextFormField(
+                                      key: emailKey,
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .textTheme
@@ -117,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     const SizedBox(height: 30),
                                     TextFormField(
+                                      key: passwordKey,
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .textTheme
@@ -149,8 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(height: 50),
                               LoginSignupButton(
+                                buttonKey: loginButtonKey,
                                 title: 'Login',
-                                ontap: () async {
+                                onTap: () async {
                                   _authenticateWithEmailAndPassword(context);
                                 },
                               ),
@@ -168,6 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ?.withOpacity(0.87)),
                                       textAlign: TextAlign.center),
                                   TextButton(
+                                    key: openRegistrationScreenButtonKey,
                                     style: ButtonStyle(
                                       overlayColor:
                                           MaterialStateProperty.all<Color>(

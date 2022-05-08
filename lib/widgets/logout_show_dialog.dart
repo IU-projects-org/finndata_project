@@ -1,3 +1,4 @@
+import 'package:finndata_project/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +29,7 @@ Future<void> logOutShowDialog(BuildContext context) async {
                         fontSize: 24),
                   )),
               TextButton(
+                  key: yesButtonKey,
                   onPressed: () async {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();

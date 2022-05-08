@@ -88,6 +88,7 @@ class _SettingsState extends State<Settings> {
             const SizedBox(),
             const SizedBox(),
             ElevatedButton(
+              key: logoutButtonKey,
               style: ElevatedButton.styleFrom(primary: Colors.black),
               child: const Text('Logout'),
               onPressed: () async {

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class LoginSignupButton extends StatelessWidget {
-  const LoginSignupButton({Key? key, required this.title, this.ontap})
+  const LoginSignupButton(
+      {Key? key, required this.buttonKey, required this.title, this.onTap})
       : super(key: key);
   final String title;
-  final dynamic ontap;
-
+  final dynamic onTap;
+  final ValueKey buttonKey;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: ElevatedButton(
-        onPressed: ontap,
+        key: buttonKey,
+        onPressed: onTap,
         style: Theme.of(context).elevatedButtonTheme.style,
         child: Padding(
           padding:

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../models/api_result.dart';
@@ -74,6 +76,9 @@ class FinnHubAPIRepository {
           .toList();
       return ApiResult.success(data: news);
     } catch (e) {
+      await FirebaseCrashlytics.instance.log(e.toString());
+      await FirebaseCrashlytics.instance
+          .recordFlutterError(FlutterErrorDetails(exception: e));
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }

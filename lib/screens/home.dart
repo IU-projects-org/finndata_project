@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/finn/api_cubit.dart';
+import '../constants/app_constants.dart';
 import 'my_stocks.dart';
 
 class Home extends StatefulWidget {
@@ -57,6 +58,7 @@ class _HomeState extends State<Home> {
         ),
         actions: <Widget>[
           IconButton(
+            key: openSettingsKey,
             icon:
                 Icon(Icons.settings, color: Theme.of(context).iconTheme.color),
             onPressed: () async {
@@ -76,8 +78,14 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.home),
             label: '',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                key: searchButtonKey,
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.bookmark, key: favouritesButtonKey), label: ''),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

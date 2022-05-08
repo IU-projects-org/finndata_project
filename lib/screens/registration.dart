@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth/auth_bloc.dart';
 import '../config/themes/decoration.dart';
+import '../constants/app_constants.dart';
 import '../widgets/button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -103,6 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Column(
                             children: [
                               TextFormField(
+                                key: emailKey,
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -131,6 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               const SizedBox(height: 30),
                               TextFormField(
+                                key: passwordKey,
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme
@@ -162,8 +165,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         const SizedBox(height: 50),
                         LoginSignupButton(
+                          buttonKey: registerButtonKey,
                           title: 'Register',
-                          ontap: () async {
+                          onTap: () async {
                             _authenticateWithEmailAndPassword(context);
                           },
                         ),

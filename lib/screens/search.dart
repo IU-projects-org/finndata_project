@@ -105,11 +105,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                             .textTheme
                                             .headline3
                                             ?.color),
+                                    key: favouriteDescriptionKey,
                                   ),
                                   trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
+                                            key: addFavouriteButtonKey,
                                             onPressed: () {
                                               _updateStockState(
                                                   symbolStock[index]);

@@ -2,6 +2,7 @@ import 'package:finndata_project/screens/login.dart';
 import 'package:finndata_project/utils/local_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,8 +10,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/finn/api_cubit.dart';
 import 'constants/app_constants.dart';
-import 'di/bloc_injector.dart';
-import 'di/bloc_module.dart';
 import 'repos/auth_repo.dart';
 import 'repos/finn_api_repo.dart';
 import 'screens/home.dart';
@@ -21,7 +20,9 @@ Future<void> main() async {
   await Hive.initFlutter();
   await SettingsStorage().init();
   await StockSubscriptionsStorage().init();
-  var container = await BlocInjector.create(BlocModule());
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  // var container = await BlocInjector.create(BlocModule());
 
   runApp(
     const MyApp(),
