@@ -112,15 +112,6 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
             ),
           ]),
         ),
-        backgroundColor: Colors.black,
-      ),
-      body: Container(
-        color: Theme.of(context).backgroundColor,
-        child: Center(
-            child: Text(
-          'Current price: $_currentRate\$',
-          style: const TextStyle(fontSize: 54),
-        )),
       ),
     );
   }
