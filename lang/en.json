@@ -5,5 +5,8 @@
     "language_label": "Language",
     "logout_button": "Logout"
   },
-  "app_bar_title": "Translation"
+  "appbar_titles": ["Market News","Search on Symbol Stock","Saved Stocks"],
+  "search_screen": {"search_button": "Search","search_tile": {"description": "Description"}},
+  "saved_stocks_screen": {"results_label": "Results"}
+
 }
