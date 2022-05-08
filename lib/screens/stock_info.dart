@@ -28,7 +28,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
     await finnApiRepo.fetchQuote(widget.symbolQuery).then((quoteResponse) {
       if (quoteResponse.containsKey('c')) {
         setState(() {
-          _currentRate = quoteResponse['c'];
+          _currentRate = quoteResponse['c'].toDouble();
         });
       }
     });
@@ -85,23 +85,22 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
+            iconTheme: Theme.of(context).iconTheme,
+            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
             title: Text(
               widget.title,
-              style: TextStyle(color: Theme.of(context).primaryColor),
+              style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
             bottom: TabBar(
-              labelColor: Theme.of(context).primaryColor,
+              labelColor: Theme.of(context).textTheme.headline3?.color,
               tabs: const [
                 Tab(text: 'Details'),
-                Tab(text: 'Description'),
-                Tab(text: 'Fundamentals'),
               ],
               indicatorColor: Colors.black,
             ),
-            backgroundColor: Colors.black,
           ),
           body: TabBarView(children: [
             Container(
@@ -109,23 +108,8 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
               child: Center(
                   child: Text(
                 'Current price: $_currentRate\$',
+                textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Theme.of(context).backgroundColor,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
               )),
             ),
           ]),

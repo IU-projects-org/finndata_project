@@ -1,0 +1,12 @@
+{
+  "settings_screen": {
+  "title": "Settings",
+    "theme_mode": ["Light","Dark"],
+    "language_label": "Language",
+    "logout_button": "Logout"
+  },
+  "appbar_titles": ["Market News","Search on Symbol Stock","Saved Stocks"],
+  "search_screen": {"search_button": "Search","results": "results","search_tile": {"description": "Description"}},
+  "saved_stocks_screen": {"results_label": "Results","details_tile": {"description": "Description"}}
+
+}

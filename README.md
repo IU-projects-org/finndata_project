@@ -37,7 +37,7 @@ you first need to either SignIn or SignUp, then you'll be in Home Screen,
 </table>
 
 
-In Home Screen, there is a list of Market News, and you can also search on stocks,
+In Home Screen, there is a list of Market News, and you can also search on stocks and mark stocks,
 using Stock Symbol search shown in the second table.
 <table>
   <tr>
@@ -45,18 +45,34 @@ using Stock Symbol search shown in the second table.
     <td align="center">Search Screen</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/photo_2022-03-24 16.09.45.jpeg" width=300 height=630></td>
-    <td><img src="/screenshots/photo_2022-03-24 16.09.46.jpeg" width=300 height=630></td>
+    <td><img src="/screenshots/home.png" width=300 height=533></td>
+    <td><img src="/screenshots/search.png" width=300 height=533></td>
   </tr>
 </table>
 
-then once you click on any of the resulted list items, you will be forwarded to Stock Info Screen. 
+then once you click on any of the resulted list items, you will be forwarded to Stock Info Screen, where
+you can see current stock price. \
+Marked stocks go to the corresponding screen for your saved stocks.
 <table>
   <tr>
     <td align="center">Stock Info Screen</td>
+    <td align="center">Saved Stocks</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/photo_2022-03-24 16.09.41.jpeg" width=300 height=630></td>
+    <td><img src="/screenshots/stock.png" width=300 height=533></td>
+    <td><img src="/screenshots/saved.png" width=300 height=533></td>
+  </tr>
+</table>
+
+You can also change themes or language if you want it in Settings screen.
+<table>
+  <tr>
+    <td align="center">Settings</td>
+    <td align="center">White and Dark Themes</td>
+  </tr>
+  <tr>
+    <td><img src="/screenshots/settings.png" width=300 height=533></td>
+    <td><img src="/screenshots/dark-white-themes.png" width=300 height=533></td>
   </tr>
 </table>
 
