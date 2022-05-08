@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final labels = jsonDecode(
-        jsonEncode(AppLocalizations.of(context)!.translate('appbar_titles')));
+        jsonEncode(AppLocalizations.of(context)!.translate('settings_screen')));
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
       height: 400,
@@ -40,11 +40,9 @@ class _SettingsState extends State<Settings> {
                 Expanded(
                   child: ListTile(
                     leading: Radio<String>(
-                      value: labels['theme_mode'][0],
+                      value: 'Light',
                       activeColor: Colors.black,
-                      groupValue: appSettings.theme
-                          ? labels['theme_mode'][0]
-                          : labels['theme_mode'][1],
+                      groupValue: appSettings.theme ? 'Light' : 'Dark',
                       onChanged: (value) {
                         setState(() {
                           myTheme.switchTheme();
@@ -58,11 +56,9 @@ class _SettingsState extends State<Settings> {
                 Expanded(
                   child: ListTile(
                     leading: Radio<String>(
+                      value: 'Dark',
                       activeColor: Colors.black,
-                      value: labels['theme_mode'][1],
-                      groupValue: appSettings.theme
-                          ? labels['theme_mode'][0]
-                          : labels['theme_mode'][1],
+                      groupValue: appSettings.theme ? 'Light' : 'Dark',
                       onChanged: (value) {
                         setState(() {
                           myTheme.switchTheme();

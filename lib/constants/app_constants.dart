@@ -13,7 +13,7 @@ List<SymbolResultModel> myStocks = [];
 
 const Iterable<Locale> supportedLocales = [
   Locale('en'),
-  Locale('ar'),
+  Locale('ru'),
 ];
 
 const Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [

@@ -6,7 +6,7 @@
     "logout_button": "Выйти"
   },
   "appbar_titles": ["Новости Рынка","Поиск по Названию Акций","Сохранённые Акции"],
-  "search_screen": {"search_button": "Искать","search_tile": {"description": "Описание"}},
-  "saved_stocks_screen": {"results_label": "Результаты"}
+  "search_screen": {"search_button": "Искать","results": "Результаты","search_tile": {"description": "Описание"}},
+  "saved_stocks_screen": {"results_label": "Результаты","details_tile": {"description": "Описание"}}
 
 }
