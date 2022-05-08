@@ -91,14 +91,6 @@ class FinnHubAPIRepository {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
   }
-  // Future<List<SymbolResultModel>> getQueryStocks(String query) async {
-  //   final results = await finnApiRepo.searchQuery(query);
-  //   final List<SymbolResultModel> resultModel = results
-  //       .map((value) =>
-  //           SymbolResultModel.fromJson(value as Map<String, dynamic>))
-  //       .toList();
-  //   return resultModel;
-  // }
 }
 
 final FinnHubAPIRepository finnApiRepo = FinnHubAPIRepository();
