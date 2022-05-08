@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth/auth_bloc.dart';
-import '../themes/decoration.dart';
+import '../config/themes/decoration.dart';
 import '../widgets/button.dart';
 import 'home.dart';
 import 'registration.dart';
