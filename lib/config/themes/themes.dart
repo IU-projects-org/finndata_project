@@ -15,6 +15,9 @@ class MyTheme with ChangeNotifier {
   }
 
   ThemeData standardTheme() => ThemeData(
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(color: Colors.black)),
       brightness: Brightness.light,
       cardColor: standardCardColor,
       primaryColor: whiteColor,
@@ -38,6 +41,9 @@ class MyTheme with ChangeNotifier {
       progressIndicatorTheme: ProgressIndicatorThemeData(color: blackColor),
       iconTheme: IconThemeData(color: blackColor));
   ThemeData darkTheme() => ThemeData(
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          titleTextStyle: TextStyle(color: Colors.white)),
       brightness: Brightness.dark,
       cardColor: blackCardColor,
       primaryColor: whiteColor,
