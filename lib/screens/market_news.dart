@@ -38,7 +38,7 @@ class _MarketNewsState extends State<MarketNews> {
                   return Container(
                       margin: const EdgeInsets.all(9),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD3D3D3),
+                        color: Theme.of(context).cardColor,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         border: Border.all(),

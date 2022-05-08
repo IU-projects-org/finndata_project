@@ -45,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       await BlocProvider.of<APICubit>(context)
                           .loadSearchResults(_controller.text);
                     },
-                    style: ElevatedButton.styleFrom(primary: Colors.black),
+                    style: Theme.of(context).elevatedButtonTheme.style,
                     child: const Text(
                       'Search',
                       style: TextStyle(color: Colors.white),
@@ -59,7 +59,10 @@ class _SearchScreenState extends State<SearchScreen> {
               BlocBuilder<APICubit, APIState>(
                   builder: (BuildContext context, APIState state) {
                 return state.when(loading: () {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: CircularProgressIndicator(
+                          color:
+                              Theme.of(context).progressIndicatorTheme.color));
                 }, idle: () {
                   return Container();
                 }, data: (symbolStock) {
@@ -77,47 +80,69 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           )),
                       ListView.builder(
-                        itemCount: symbolStock
-                            .sublist(0, min(symbolStock.length as int, 100))
-                            .length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: ListTile(
-                              title: const Text(
-                                'Description',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(symbolStock[index].description),
-                              trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          _updateStockState(symbolStock[index]);
-                                        },
-                                        icon: Icon(myStocks
-                                                .map((e) => e.symbol)
-                                                .contains(
-                                                    symbolStock[index].symbol)
-                                            ? Icons.bookmark
-                                            : Icons.bookmark_border)),
-                                    const Icon(Icons.arrow_forward)
-                                  ]),
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => StockInfoScreen(
-                                        title: symbolStock[index].symbol,
-                                        symbolQuery: symbolStock[index].symbol),
+                          itemCount: symbolStock
+                              .sublist(0, min(symbolStock.length as int, 100))
+                              .length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              color: Theme.of(context).cardColor,
+                              child: ListTile(
+                                  title: Text(
+                                    'Description',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline3
+                                            ?.color),
                                   ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                                  subtitle: Text(
+                                    symbolStock[index].description,
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline3
+                                            ?.color),
+                                  ),
+                                  trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              _updateStockState(
+                                                  symbolStock[index]);
+                                            },
+                                            icon: Icon(
+                                                myStocks
+                                                        .map(
+                                                          (e) => e.symbol,
+                                                        )
+                                                        .contains(
+                                                            symbolStock[index]
+                                                                .symbol)
+                                                    ? Icons.bookmark
+                                                    : Icons.bookmark_border,
+                                                color: Theme.of(context)
+                                                    .iconTheme
+                                                    .color)),
+                                        Icon(Icons.arrow_forward,
+                                            color: Theme.of(context)
+                                                .iconTheme
+                                                .color)
+                                      ]),
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => StockInfoScreen(
+                                          title: symbolStock[index].symbol,
+                                          symbolQuery:
+                                              symbolStock[index].symbol),
+                                    ));
+                                  }),
+                            );
+                          }),
                     ],
                   );
                 }, error: (NetworkExceptions error) {

@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         automaticallyImplyLeading: false,
         title: Text(
           _selectedIndex == 0
@@ -53,34 +53,36 @@ class _HomeState extends State<Home> {
               : _selectedIndex == 1
                   ? 'Search on Symbol Stock'
                   : 'Saved Stocks',
-          style: const TextStyle(color: Colors.white),
+          style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon:
+                Icon(Icons.settings, color: Theme.of(context).iconTheme.color),
             onPressed: () async {
               await showSettingsBottomDialog(context);
             },
           )
         ],
       ),
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).backgroundColor,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         unselectedItemColor: const Color(0xFF707070),
+        selectedItemColor: Theme.of(context).iconTheme.color,
         selectedFontSize: 0,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: ''),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
         onTap: _onItemTapped,
       ),
       body: SafeArea(child: screens[_selectedIndex]),
-      //   ),
-      // ),
     );
   }
 }

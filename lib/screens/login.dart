@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth/auth_bloc.dart';
-import '../constants/constants.dart';
+import '../config/themes/decoration.dart';
 import '../widgets/button.dart';
 import 'home.dart';
 import 'registration.dart';
@@ -65,19 +65,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         height: double.infinity,
                         width: double.infinity,
-                        color: Colors.grey[200],
+                        color: Theme.of(context).backgroundColor,
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 25, vertical: 120),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 'Welcome back!',
-                                style: TextStyle(
-                                    fontSize: 50,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style: Theme.of(context).textTheme.headline3,
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 30),
@@ -91,6 +88,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   children: [
                                     TextFormField(
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline3
+                                            ?.color,
+                                      ),
                                       keyboardType: TextInputType.emailAddress,
                                       onChanged: (value) {
                                         email = value;
@@ -102,16 +105,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                         return null;
                                       },
                                       textAlign: TextAlign.center,
-                                      decoration: kTextFieldDecoration.copyWith(
+                                      decoration: kTextFieldDecoration(context)
+                                          .copyWith(
                                         hintText: 'Email',
-                                        prefixIcon: const Icon(
+                                        prefixIcon: Icon(
                                           Icons.email,
-                                          color: Colors.black,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(height: 30),
                                     TextFormField(
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headline3
+                                            ?.color,
+                                      ),
                                       obscureText: true,
                                       validator: (value) {
                                         if (value!.isEmpty) {
@@ -123,12 +134,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         password = value;
                                       },
                                       textAlign: TextAlign.center,
-                                      decoration: kTextFieldDecoration.copyWith(
-                                          hintText: 'Password',
-                                          prefixIcon: const Icon(
-                                            Icons.lock,
-                                            color: Colors.black,
-                                          )),
+                                      decoration: kTextFieldDecoration(context)
+                                          .copyWith(
+                                              hintText: 'Password',
+                                              prefixIcon: Icon(
+                                                Icons.lock,
+                                                color: Theme.of(context)
+                                                    .iconTheme
+                                                    .color,
+                                              )),
                                     ),
                                   ],
                                 ),
@@ -144,9 +158,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text("Don't have an Account?",
+                                  Text("Don't have an Account?",
                                       style: TextStyle(
-                                          fontSize: 20, color: Colors.black87),
+                                          fontSize: 20,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .headline3
+                                              ?.color
+                                              ?.withOpacity(0.87)),
                                       textAlign: TextAlign.center),
                                   TextButton(
                                     style: ButtonStyle(
@@ -154,12 +173,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                           MaterialStateProperty.all<Color>(
                                               Colors.transparent),
                                     ),
-                                    child: const Text(
+                                    child: Text(
                                       'Sign Up',
                                       style: TextStyle(
                                           fontSize: 21,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .headline3
+                                              ?.color),
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).push(

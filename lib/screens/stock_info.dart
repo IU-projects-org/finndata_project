@@ -88,9 +88,13 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
-            bottom: const TabBar(
-              tabs: [
+            title: Text(
+              widget.title,
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+            bottom: TabBar(
+              labelColor: Theme.of(context).primaryColor,
+              tabs: const [
                 Tab(text: 'Details'),
                 Tab(text: 'Description'),
                 Tab(text: 'Fundamentals'),
@@ -101,7 +105,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
           ),
           body: TabBarView(children: [
             Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: Center(
                   child: Text(
                 'Current price: $_currentRate\$',
@@ -109,7 +113,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
               )),
             ),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: const Center(
                   child: Text(
                 'Soon :)',
@@ -117,7 +121,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
               )),
             ),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: const Center(
                   child: Text(
                 'Soon :)',

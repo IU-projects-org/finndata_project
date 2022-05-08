@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/finn/api_cubit.dart';
+import 'constants/app_constants.dart';
 import 'repos/auth_repo.dart';
 import 'repos/finn_api_repo.dart';
 import 'screens/home.dart';
@@ -23,8 +24,21 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    myTheme.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +62,14 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: myTheme.currentTheme(),
           debugShowCheckedModeBanner: false,
           home: StreamBuilder<User?>(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
-                // If the snapshot has user data, then they're already signed in. So Navigating to the Dashboard.
                 if (snapshot.hasData) {
                   return const Home();
                 }
-                // Otherwise, they're not signed in. Show the sign in page.
                 return const LoginScreen();
               }),
         ),
