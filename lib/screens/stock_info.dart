@@ -85,15 +85,13 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-        length: 3,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
             bottom: const TabBar(
               tabs: [
                 Tab(text: 'Details'),
-                Tab(text: 'Description'),
-                Tab(text: 'Fundamentals'),
               ],
               indicatorColor: Colors.black,
             ),
@@ -106,22 +104,6 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
                   child: Text(
                 'Current price: $_currentRate\$',
                 style: const TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Colors.white,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
-              )),
-            ),
-            Container(
-              color: Colors.white,
-              child: const Center(
-                  child: Text(
-                'Soon :)',
-                style: TextStyle(fontSize: 54),
               )),
             ),
           ]),
