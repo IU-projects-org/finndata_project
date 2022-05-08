@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:finndata_project/constants/app_constants.dart';
@@ -5,6 +6,7 @@ import 'package:finndata_project/screens/stock_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Localization/app_localizations.dart';
 import '../bloc/finn/api_cubit.dart';
 import '../bloc/finn/api_state.dart';
 import '../models/network_exceptions.dart';
@@ -21,9 +23,10 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
   List<SymbolResultModel>? symbolStock;
-
   @override
   Widget build(BuildContext context) {
+    final labels = jsonDecode(
+        jsonEncode(AppLocalizations.of(context)!.translate('search_screen')));
     return Container(
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
@@ -46,9 +49,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           .loadSearchResults(_controller.text);
                     },
                     style: Theme.of(context).elevatedButtonTheme.style,
-                    child: const Text(
-                      'Search',
-                      // style: TextStyle(color: Theme.of(context).),
+                    child: Text(
+                      labels['search_button'],
                     ),
                   ),
                 ],
@@ -74,7 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Results: ${min(symbolStock.length as int, 100)}',
+                              '${labels['results']}: ${min(symbolStock.length as int, 100)}',
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -90,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               color: Theme.of(context).cardColor,
                               child: ListTile(
                                   title: Text(
-                                    'Description',
+                                    labels['search_tile']['description'],
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)

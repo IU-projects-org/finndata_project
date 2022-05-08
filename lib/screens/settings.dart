@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:finndata_project/constants/app_constants.dart';
 import 'package:finndata_project/utils/local_storage_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../Localization/app_localizations.dart';
+import '../bloc/local/locale_cubit.dart';
 import '../widgets/logout_show_dialog.dart';
 
 class Settings extends StatefulWidget {
@@ -14,6 +19,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
+    final labels = jsonDecode(
+        jsonEncode(AppLocalizations.of(context)!.translate('appbar_titles')));
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
       height: 400,
@@ -23,9 +30,9 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text(
-              'Settings',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            Text(
+              labels['title'],
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -33,9 +40,11 @@ class _SettingsState extends State<Settings> {
                 Expanded(
                   child: ListTile(
                     leading: Radio<String>(
-                      value: 'Light',
+                      value: labels['theme_mode'][0],
                       activeColor: Colors.black,
-                      groupValue: appSettings.theme ? 'Light' : 'Dark',
+                      groupValue: appSettings.theme
+                          ? labels['theme_mode'][0]
+                          : labels['theme_mode'][1],
                       onChanged: (value) {
                         setState(() {
                           myTheme.switchTheme();
@@ -43,15 +52,17 @@ class _SettingsState extends State<Settings> {
                         SettingsStorage().update();
                       },
                     ),
-                    title: const Text('Light'),
+                    title: Text(labels['theme_mode'][0]),
                   ),
                 ),
                 Expanded(
                   child: ListTile(
                     leading: Radio<String>(
                       activeColor: Colors.black,
-                      value: 'Dark',
-                      groupValue: appSettings.theme ? 'Light' : 'Dark',
+                      value: labels['theme_mode'][1],
+                      groupValue: appSettings.theme
+                          ? labels['theme_mode'][0]
+                          : labels['theme_mode'][1],
                       onChanged: (value) {
                         setState(() {
                           myTheme.switchTheme();
@@ -59,7 +70,7 @@ class _SettingsState extends State<Settings> {
                         SettingsStorage().update();
                       },
                     ),
-                    title: const Text('Dark'),
+                    title: Text(labels['theme_mode'][1]),
                   ),
                 ),
               ],
@@ -67,9 +78,10 @@ class _SettingsState extends State<Settings> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Language: ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                Text(
+                  '${labels['language_label']}: ',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 DropdownButton<String>(
                   value: appSettings.language,
@@ -77,9 +89,15 @@ class _SettingsState extends State<Settings> {
                     setState(() {
                       appSettings.language = newValue!;
                     });
+                    if (newValue == 'Russian') {
+                      BlocProvider.of<LocaleCubit>(context).toRussian();
+                    } else {
+                      BlocProvider.of<LocaleCubit>(context).toEnglish();
+                    }
+
                     SettingsStorage().update();
                   },
-                  items: <String>['English', 'German', 'Russian']
+                  items: <String>['English', 'Russian']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -95,7 +113,7 @@ class _SettingsState extends State<Settings> {
             const SizedBox(),
             ElevatedButton(
               style: Theme.of(context).elevatedButtonTheme.style,
-              child: const Text('Logout'),
+              child: Text(labels['logout_button']),
               onPressed: () async {
                 await logOutShowDialog(context);
               },
