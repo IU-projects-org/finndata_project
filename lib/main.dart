@@ -35,9 +35,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     myTheme.addListener(() {
-      setState(() {
-        print('Theme Changed');
-      });
+      setState(() {});
     });
     super.initState();
   }
