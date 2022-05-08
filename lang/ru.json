@@ -1,0 +1,12 @@
+{
+  "settings_screen": {
+    "title": "Настройки",
+    "theme_mode": ["Светлая","Тёмная"],
+    "language_label": "Язык",
+    "logout_button": "Выйти"
+  },
+  "appbar_titles": ["Новости Рынка","Поиск по Названию Акций","Сохранённые Акции"],
+  "search_screen": {"search_button": "Искать","search_tile": {"description": "Описание"}},
+  "saved_stocks_screen": {"results_label": "Результаты"}
+
+}
