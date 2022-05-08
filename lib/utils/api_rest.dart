@@ -58,7 +58,7 @@ class DioClient {
       // await FirebaseCrashlytics.instance
       //     .recordFlutterError(FlutterErrorDetails(exception: e));
       throw SocketException(e.toString());
-    } on FormatException catch (e) {
+    } on FormatException catch (_) {
       // await FirebaseCrashlytics.instance.log(e.toString());
       // await FirebaseCrashlytics.instance
       //     .recordFlutterError(FlutterErrorDetails(exception: e));

@@ -1,3 +1,4 @@
+import 'package:finndata_project/bloc/local/locale_cubit.dart';
 import 'package:finndata_project/screens/login.dart';
 import 'package:finndata_project/utils/local_storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'Localization/app_localizations_setup.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/finn/api_cubit.dart';
 import 'constants/app_constants.dart';
@@ -65,18 +67,29 @@ class _MyAppState extends State<MyApp> {
                   RepositoryProvider.of<FinnHubAPIRepository>(context),
             ),
           ),
+          BlocProvider<LocaleCubit>(create: (_) => LocaleCubit()),
         ],
-        child: MaterialApp(
-          theme: myTheme.currentTheme(),
-          debugShowCheckedModeBanner: false,
-          home: StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return const Home();
-                }
-                return const LoginScreen();
-              }),
+        child: BlocBuilder<LocaleCubit, LocaleState>(
+          buildWhen: (previousState, currentState) =>
+              previousState != currentState,
+          builder: (_, localeState) {
+            return MaterialApp(
+              theme: myTheme.currentTheme(),
+              debugShowCheckedModeBanner: false,
+              home: StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return const Home();
+                    }
+                    return const LoginScreen();
+                  }),
+              supportedLocales: supportedLocales,
+              localizationsDelegates: localizationsDelegates,
+              localeResolutionCallback: localeResolutionCallback,
+              locale: localeState.locale,
+            );
+          },
         ),
       ),
     );
