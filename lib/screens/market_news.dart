@@ -1,7 +1,8 @@
-import 'package:finndata_project/bloc/finn/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/finn/api_cubit.dart';
+import '../bloc/finn/api_state.dart';
 import '../models/network_exceptions.dart';
 import '../widgets/news_tile.dart';
 
@@ -15,8 +16,6 @@ class MarketNews extends StatefulWidget {
 class _MarketNewsState extends State<MarketNews> {
   @override
   void initState() {
-    BlocProvider.of<APICubit>(context).loadNews();
-
     super.initState();
   }
 
@@ -39,7 +38,7 @@ class _MarketNewsState extends State<MarketNews> {
                   return Container(
                       margin: const EdgeInsets.all(9),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD3D3D3),
+                        color: Theme.of(context).cardColor,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(16)),
                         border: Border.all(),

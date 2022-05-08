@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 
 Future<void> showSettingsBottomDialog(BuildContext context) async {
   await showModalBottomSheet<void>(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30),
+        topLeft: Radius.circular(30),
+      ),
     ),
     context: context,
     builder: (BuildContext context) {

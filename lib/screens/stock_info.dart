@@ -28,7 +28,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
     await finnApiRepo.fetchQuote(widget.symbolQuery).then((quoteResponse) {
       if (quoteResponse.containsKey('c')) {
         setState(() {
-          _currentRate = quoteResponse['c'];
+          _currentRate = quoteResponse['c'].toDouble();
         });
       }
     });
@@ -88,9 +88,13 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
         length: 1,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
-            bottom: const TabBar(
-              tabs: [
+            title: Text(
+              widget.title,
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+            bottom: TabBar(
+              labelColor: Theme.of(context).primaryColor,
+              tabs: const [
                 Tab(text: 'Details'),
               ],
               indicatorColor: Colors.black,
@@ -99,7 +103,7 @@ class _StockInfoScreenState extends State<StockInfoScreen> {
           ),
           body: TabBarView(children: [
             Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: Center(
                   child: Text(
                 'Current price: $_currentRate\$',

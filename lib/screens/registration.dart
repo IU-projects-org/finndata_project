@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth/auth_bloc.dart';
-import '../constants/constants.dart';
+import '../config/themes/decoration.dart';
 import '../widgets/button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,16 +18,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[200],
+        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Theme.of(context).iconTheme.color,
             size: 30,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -71,20 +72,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Container(
                   height: double.infinity,
                   width: double.infinity,
-                  color: Colors.grey[200],
+                  color: Theme.of(context).backgroundColor,
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 120),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Hero(
+                        Hero(
                           tag: '1',
                           child: Text(
                             'Sign Up',
                             style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.black,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline3
+                                    ?.color,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -99,6 +103,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Column(
                             children: [
                               TextFormField(
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline3
+                                      ?.color,
+                                ),
                                 keyboardType: TextInputType.emailAddress,
                                 onChanged: (value) {
                                   email = value;
@@ -110,16 +120,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return null;
                                 },
                                 textAlign: TextAlign.center,
-                                decoration: kTextFieldDecoration.copyWith(
+                                decoration:
+                                    kTextFieldDecoration(context).copyWith(
                                   hintText: 'Email',
-                                  prefixIcon: const Icon(
+                                  prefixIcon: Icon(
                                     Icons.email,
-                                    color: Colors.black,
+                                    color: Theme.of(context).iconTheme.color,
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 30),
                               TextFormField(
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline3
+                                      ?.color,
+                                ),
                                 obscureText: true,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -131,12 +148,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   password = value;
                                 },
                                 textAlign: TextAlign.center,
-                                decoration: kTextFieldDecoration.copyWith(
-                                    hintText: 'Password',
-                                    prefixIcon: const Icon(
-                                      Icons.lock,
-                                      color: Colors.black,
-                                    )),
+                                decoration:
+                                    kTextFieldDecoration(context).copyWith(
+                                        hintText: 'Password',
+                                        prefixIcon: Icon(
+                                          Icons.lock,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                        )),
                               ),
                             ],
                           ),
