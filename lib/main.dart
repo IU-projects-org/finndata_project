@@ -9,6 +9,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/finn/api_cubit.dart';
 import 'constants/app_constants.dart';
+import 'di/bloc_injector.dart';
+import 'di/bloc_module.dart';
 import 'repos/auth_repo.dart';
 import 'repos/finn_api_repo.dart';
 import 'screens/home.dart';
@@ -19,6 +21,8 @@ Future<void> main() async {
   await Hive.initFlutter();
   await SettingsStorage().init();
   await StockSubscriptionsStorage().init();
+  var container = await BlocInjector.create(BlocModule());
+
   runApp(
     const MyApp(),
   );
