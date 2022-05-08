@@ -23,7 +23,7 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text('Settings'),
+            const Text('Settings', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -64,7 +64,7 @@ class _SettingsState extends State<Settings> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Language: '),
+                const Text('Language: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                 DropdownButton<String>(
                   value: appSettings.language,
                   onChanged: (String? newValue) {

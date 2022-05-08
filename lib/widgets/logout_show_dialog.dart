@@ -20,10 +20,10 @@ Future<void> logOutShowDialog(BuildContext context) async {
                   style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(
                           Colors.black54.withOpacity(0.1))),
-                  child: const Text(
+                  child: Text(
                     'No',
                     style: TextStyle(
-                        color: Colors.black54,
+                        color: Theme.of(context).textTheme.headline3?.color,
                         fontWeight: FontWeight.bold,
                         fontSize: 24),
                   )),
@@ -37,10 +37,10 @@ Future<void> logOutShowDialog(BuildContext context) async {
                   style: ButtonStyle(
                       overlayColor: MaterialStateProperty.all(
                           Colors.black54.withOpacity(0.1))),
-                  child: const Text(
+                  child: Text(
                     'Yes',
                     style: TextStyle(
-                        color: Colors.black54,
+                        color: Theme.of(context).textTheme.headline3?.color,
                         fontWeight: FontWeight.bold,
                         fontSize: 24),
                   ))

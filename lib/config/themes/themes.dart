@@ -17,7 +17,7 @@ class MyTheme with ChangeNotifier {
   ThemeData standardTheme() => ThemeData(
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(color: Colors.black)),
+          titleTextStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
       brightness: Brightness.light,
       cardColor: standardCardColor,
       primaryColor: whiteColor,
@@ -43,7 +43,7 @@ class MyTheme with ChangeNotifier {
   ThemeData darkTheme() => ThemeData(
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
-          titleTextStyle: TextStyle(color: Colors.white)),
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
       brightness: Brightness.dark,
       cardColor: blackCardColor,
       primaryColor: whiteColor,
