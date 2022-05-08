@@ -17,7 +17,8 @@ class MyTheme with ChangeNotifier {
   ThemeData standardTheme() => ThemeData(
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+          titleTextStyle: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
       brightness: Brightness.light,
       cardColor: standardCardColor,
       primaryColor: whiteColor,
@@ -25,13 +26,13 @@ class MyTheme with ChangeNotifier {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.all(Colors.black38),
-          foregroundColor: MaterialStateProperty.all(Colors.white),
+          foregroundColor: MaterialStateProperty.all(Colors.black),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all(Colors.black45),
+          backgroundColor: MaterialStateProperty.all(Colors.white),
         ),
       ),
       textTheme: TextTheme(
@@ -43,7 +44,8 @@ class MyTheme with ChangeNotifier {
   ThemeData darkTheme() => ThemeData(
       appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+          titleTextStyle: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
       brightness: Brightness.dark,
       cardColor: blackCardColor,
       primaryColor: whiteColor,

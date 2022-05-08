@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
+import '../Localization/app_localizations.dart';
 import '../constants/app_constants.dart';
 import 'stock_info.dart';
 
@@ -8,6 +11,8 @@ class MyStocksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final labels = jsonDecode(jsonEncode(
+        AppLocalizations.of(context)!.translate('saved_stocks_screen')));
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -17,7 +22,7 @@ class MyStocksList extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Results: ${myStocks.length}',
+                  '${labels['results_label']}: ${myStocks.length}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               )),
@@ -28,9 +33,9 @@ class MyStocksList extends StatelessWidget {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
-                  title: const Text(
-                    'Description',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  title: Text(
+                    labels['details_tile']['description'],
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(myStocks[index].description),
                   trailing: Row(
