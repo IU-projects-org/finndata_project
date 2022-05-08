@@ -32,4 +32,8 @@ class APICubit extends Cubit<APIState> {
       emit(APIState.error(error: error));
     });
   }
+
+  Future<void> cancelLoading() async {
+    emit(const APIState.idle());
+  }
 }

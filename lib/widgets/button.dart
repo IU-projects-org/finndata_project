@@ -11,16 +11,7 @@ class LoginSignupButton extends StatelessWidget {
     return SizedBox(
       child: ElevatedButton(
         onPressed: ontap,
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.black38),
-          foregroundColor: MaterialStateProperty.all(Colors.white),
-          shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          backgroundColor: MaterialStateProperty.all(Colors.black45),
-        ),
+        style: Theme.of(context).elevatedButtonTheme.style,
         child: Padding(
           padding:
               const EdgeInsets.only(top: 20, bottom: 20, right: 30, left: 30),
